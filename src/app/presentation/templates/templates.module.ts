@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ProductsTableComponent } from './products-table/products-table.component';
+import {NgModule} from '@angular/core';
+import {CommonModule, DatePipe} from '@angular/common';
+import {ProductsTableComponent} from './products-table/products-table.component';
 import {OrganismsModule} from "@organisms/organisms.module";
-
 
 
 @NgModule({
@@ -14,7 +13,9 @@ import {OrganismsModule} from "@organisms/organisms.module";
   ],
   imports: [
     CommonModule,
-    OrganismsModule
-  ]
+    OrganismsModule,
+  ],
+  providers: [DatePipe]
 })
-export class TemplatesModule { }
+export class TemplatesModule {
+}

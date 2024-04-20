@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormControl} from "@angular/forms";
+import {debounceTime} from "rxjs";
 
 @Component({
   selector: 'app-product-actions-toolbar',
@@ -7,6 +8,8 @@ import {FormBuilder, FormControl} from "@angular/forms";
   styleUrl: './product-actions-toolbar.component.css'
 })
 export class ProductActionsToolbarComponent {
+
+  @Output() search = new EventEmitter<string>();
 
   searchControl!: FormControl;
 
@@ -19,5 +22,9 @@ export class ProductActionsToolbarComponent {
 
   initializeControls(): void {
     this.searchControl = this.formBuilder.control('');
+
+    this.searchControl.valueChanges
+      .pipe(debounceTime(300))
+      .subscribe((value) => this.search.emit(value));
   }
 }

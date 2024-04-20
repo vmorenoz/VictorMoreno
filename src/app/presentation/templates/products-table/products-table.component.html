@@ -1,6 +1,7 @@
-<div class="card">
-  <app-table [columns]="columns" [data]="data"></app-table>
+<app-product-actions-toolbar (search)="searchValue = $event"></app-product-actions-toolbar>
+<div class="card mt-1">
+  <app-table [columns]="columns" [data]="displayedProducts"></app-table>
   <div class="mt-3">
-    <app-paginator></app-paginator>
+    <app-paginator [totalItems]="allProducts.length"></app-paginator>
   </div>
 </div>

@@ -7,6 +7,7 @@ import {MoleculesModule} from "@molecules/molecules.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {TableComponent} from './table/table.component';
 import { PaginatorComponent } from './paginator/paginator.component';
+import {RouterLink} from "@angular/router";
 
 const components = [
   AdminToolbarComponent
@@ -19,7 +20,8 @@ const components = [
     CommonModule,
     AtomsModule,
     MoleculesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ]
 })
 export class OrganismsModule {
