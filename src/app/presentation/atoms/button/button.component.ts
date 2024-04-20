@@ -9,6 +9,7 @@ export class ButtonComponent {
 
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() color: 'default' | 'primary' | 'secondary' | 'tertiary' | 'accent' = 'default';
+  @Input() disabled = false;
 
   get classes() {
     return `app-btn btn-${this.color}`

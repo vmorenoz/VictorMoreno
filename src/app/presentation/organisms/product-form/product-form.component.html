@@ -1,0 +1,33 @@
+<form [formGroup]="productFormGroup" autocomplete="off" novalidate>
+  <div class="grid grid-cols-2 gap-2">
+    <div>
+      <app-text-input formControlName="id" label="ID" placeholder="ID del producto"></app-text-input>
+    </div>
+    <div>
+      <app-text-input formControlName="name" label="Nombre" placeholder="Nombre del producto"></app-text-input>
+    </div>
+    <div>
+      <app-text-input formControlName="description" label="Descripción"
+                      placeholder="Descripción del producto"></app-text-input>
+    </div>
+    <div>
+      <app-text-input formControlName="logo" label="Logo" placeholder="URL de logo"></app-text-input>
+    </div>
+    <div>
+      <app-text-input formControlName="date_release" label="Fecha Liberación" placeholder="dd/mm/aaaa"
+                      type="date"></app-text-input>
+    </div>
+    <div>
+      <app-text-input formControlName="date_revision" label="Fecha Revisión" placeholder="dd/mm/aaaa"
+                      type="date"></app-text-input>
+    </div>
+  </div>
+  <div class="grid grid-cols-2 gap-3 mt-3">
+    <div class="align-end">
+      <app-button color="tertiary">Reiniciar</app-button>
+    </div>
+    <div class="align-start">
+      <app-button color="accent" type="submit" [disabled]="productFormGroup.invalid">Enviar</app-button>
+    </div>
+  </div>
+</form>

@@ -5,12 +5,18 @@
   text-decoration: none;
   display: inline-block;
   font-size: small;
+  font-weight: bold;
   font-family: var(--font-family);
   margin: 4px 2px;
   cursor: pointer;
   border-radius: .25rem;
   text-transform: uppercase;
   transition: background-color 0.3s ease;
+
+  &:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
 }
 
 .btn-default {

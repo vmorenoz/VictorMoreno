@@ -3,7 +3,6 @@
   flex-direction: column;
   width: auto;
 
-
   input {
     display: block;
     width: auto;
@@ -11,6 +10,7 @@
     font-size: medium;
     font-family: var(--font-family);
     line-height: 1.5;
+    max-height: 1.5rem;
     color: var(--black-color);
     background-color: var(--white-color);
     background-clip: padding-box;
@@ -23,6 +23,15 @@
       background-color: #fff;
       border-color: var(--primary-color);
       outline: 0;
+    }
+
+    &:disabled {
+      background-color: var(--light-color);
+      color: var(--gray-color);
+    }
+
+    &::placeholder {
+      color: var(--gray-color-light);
     }
   }
 }

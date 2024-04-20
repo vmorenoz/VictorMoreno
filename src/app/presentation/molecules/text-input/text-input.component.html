@@ -1,4 +1,6 @@
 <div class="input-container">
   <app-input-label *ngIf="!!label">{{ label }}</app-input-label>
-  <input type="text" [(ngModel)]="value" (input)="updateValue($event)" [placeholder]="placeholder">
+  {{validationErrors}}
+  <input [type]="type" [disabled]="disabled" [(ngModel)]="value" (input)="updateValue($event)"
+         [placeholder]="placeholder">
 </div>
