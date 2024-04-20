@@ -1,12 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {InputLabelComponent} from './input-label/input-label.component';
+import {ButtonComponent} from './button/button.component';
 
-
+const components = [
+  InputLabelComponent, ButtonComponent
+];
 
 @NgModule({
-  declarations: [],
+  declarations: [...components],
+  exports: [...components],
   imports: [
-    CommonModule
+    CommonModule,
   ]
 })
-export class AtomsModule { }
+export class AtomsModule {
+}

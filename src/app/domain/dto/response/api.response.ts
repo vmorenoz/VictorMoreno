@@ -1,7 +1,7 @@
 export class ApiResponse<T> {
   error: boolean = false;
   statusCode: number = 200;
-  data: T | null = null;
+  data!: T;
   message: string = '';
 
   static successResponse<T>(json: any, message: string = 'Success response'): ApiResponse<T> {

@@ -1,0 +1,7 @@
+<div class="select-container">
+  <app-input-label *ngIf="!!label">{{ label }}</app-input-label>
+  <select [(ngModel)]="value" (change)="updateValue($event)">
+    <option disabled [value]="null" *ngIf="!!placeholder">{{ placeholder }}</option>
+    <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
+  </select>
+</div>

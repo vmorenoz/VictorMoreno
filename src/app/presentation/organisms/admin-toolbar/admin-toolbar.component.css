@@ -1,0 +1,19 @@
+.toolbar {
+  background-color: #fff;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .toolbar-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+
+    .logo-text {
+      font-size: 1.2rem;
+      text-transform: uppercase;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+.table-container {
+  width: 100%;
+  margin: 0 auto;
+  overflow-x: hidden;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 14px;
+    color: var(--black-color);
+    border-radius: 5px;
+    overflow: auto;
+    background: var(--white-color);
+
+    thead {
+      background: var(--light-color);
+
+      tr {
+        th {
+          padding: 10px 15px;
+          text-align: left;
+          font-weight: 500;
+          color: var(--black-color);
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          padding: 10px 15px;
+          border-bottom: 2px solid var(--light-color);
+          color: var(--black-color);
+
+          &:last-child {
+            border-right: 0;
+          }
+        }
+      }
+    }
+  }
+}

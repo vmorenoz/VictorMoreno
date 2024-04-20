@@ -32,6 +32,21 @@
       ],
       "@config/*": [
         "src/app/config/*"
+      ],
+      "@atoms/*": [
+        "src/app/presentation/atoms/*"
+      ],
+      "@molecules/*": [
+        "src/app/presentation/molecules/*"
+      ],
+      "@organisms/*": [
+        "src/app/presentation/organisms/*"
+      ],
+      "@pages/*": [
+        "src/app/presentation/pages/*"
+      ],
+      "@templates/*": [
+        "src/app/presentation/templates/*"
       ]
     }
   },
