@@ -1,10 +1,21 @@
-import {Component, forwardRef, Input, Optional, Self, SkipSelf} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ValidationErrors} from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  Injector,
+  Input,
+  Optional,
+  Self,
+  ViewEncapsulation
+} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from '@angular/forms';
 
 @Component({
   selector: 'app-text-input',
   templateUrl: './text-input.component.html',
   styleUrls: ['./text-input.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -19,17 +30,24 @@ export class TextInputComponent implements ControlValueAccessor {
   @Input() placeholder: string = '';
   @Input() type: 'text' | 'date' = 'text';
 
-
   value!: string;
   disabled: boolean = false;
-  validationErrors!: ValidationErrors | null | undefined;
+  ngControl!: NgControl | null;
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  constructor(@Optional() @SkipSelf() public ngControl: NgControl) {
+  constructor(private readonly injector: Injector) {
+  }
+
+  ngOnInit() {
+    this.ngControl = this.injector.get(NgControl, null);
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+  }
+
+  get errors() {
+    return this.ngControl ? this.ngControl?.errors : null;
   }
 
   writeValue(value: string): void {
@@ -49,10 +67,6 @@ export class TextInputComponent implements ControlValueAccessor {
     this.value = value;
     this.onChange(value);
     this.onTouched();
-    if (this.ngControl) {
-      console.log('Validation errors', this.ngControl.control?.errors);
-      this.validationErrors = this.ngControl.control?.errors;
-    }
   }
 
   setDisabledState(isDisabled: boolean) {
