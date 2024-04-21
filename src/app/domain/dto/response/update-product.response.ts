@@ -4,25 +4,19 @@ import {HttpResponse} from "@angular/common/http";
 
 export class UpdateProductResponse extends ApiResponse<FinancialProduct> {
 
-  static mapFromResponse(response: HttpResponse<any>): UpdateProductResponse {
-    let mappedResponse: UpdateProductResponse;
-    switch (response.status) {
-      case 200: // OK
-        mappedResponse = UpdateProductResponse.successResponse<FinancialProduct>(response.body);
-        break;
-      case 206: // Partial Content
-        mappedResponse = UpdateProductResponse.errorResponse('Partial Content', response.body, response.status);
-        break;
-      case 400: // Bad Request
-        mappedResponse = UpdateProductResponse.errorResponse('Bad Request', response.body, response.status);
-        break;
-      case 401: // Bad Request
-        mappedResponse = UpdateProductResponse.errorResponse('You must be the owner', response.body, response.status);
-        break;
-      default:
-        mappedResponse = UpdateProductResponse.errorResponse('Unknown Error', response.body, response.status);
-        break;
-    }
-    return mappedResponse;
+  static handleSuccess(response: HttpResponse<any>): UpdateProductResponse {
+    const items = FinancialProduct.fromJson(response.body);
+    return UpdateProductResponse.successResponse(items, 'Producto actualizado correctamente');
+  }
+
+  static handleError(error: { status: number, error: any }) {
+    const possibleErrors: { [key: string]: string } = {
+      400: 'Bad Request',
+      401: 'You must be the owner of the product',
+      500: 'Internal Server Error',
+      default: 'Unknown Error'
+    };
+    const errorMessage = possibleErrors[error.status] ?? possibleErrors['default'];
+    return UpdateProductResponse.errorResponse(errorMessage, error.error, error.status);
   }
 }

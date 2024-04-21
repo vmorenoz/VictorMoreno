@@ -1,8 +1,16 @@
 <div class="grid grid-cols-12">
-  <div class="col-span-11">
-    <p>{{ totalItems }} Resultados</p>
+  <div class="col-span-8">
+    <p>{{ totalItems }} Registros - Pagina {{ currentPage }}/{{ totalPages }}</p>
   </div>
-  <div>
-    <app-select-input [formControl]="pageSizeControl" [options]="pageSizeOptions"></app-select-input>
+  <div class="col-span-4">
+    <div class="flex justify-end items-center">
+      <app-button (click)="previousPage()" [disabled]="currentPage === 1" title="Anterior">
+        <span class="material-symbols-outlined">navigate_before</span>
+      </app-button>
+      <app-button (click)="nextPage()" [disabled]="currentPage === totalPages" title="Siguiente">
+        <span class="material-symbols-outlined">navigate_next</span>
+      </app-button>
+      <app-select-input [formControl]="pageSizeControl" [options]="pageSizeOptions"></app-select-input>
+    </div>
   </div>
 </div>

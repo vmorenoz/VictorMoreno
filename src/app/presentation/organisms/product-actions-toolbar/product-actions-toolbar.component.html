@@ -1,8 +1,8 @@
 <div class="grid grid-cols-3 mt-3">
   <div class="my-auto">
-    <app-text-input [formControl]="searchControl" placeholder="Search..."></app-text-input>
+    <app-text-input [formControl]="searchControl" placeholder="Buscar..."></app-text-input>
   </div>
   <div class="col-span-2 align-end">
-    <app-button color="accent" routerLink="/products/create">Agregar</app-button>
+    <app-button color="accent" (onClick)="goToCreateProduct()">Agregar</app-button>
   </div>
 </div>

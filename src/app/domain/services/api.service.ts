@@ -28,7 +28,7 @@ export class ApiService {
     return this._http.put(url, body, {headers: this.getHeaders(), observe: 'response'});
   }
 
-  delete(url: string) {
-    return this._http.delete(url, {headers: this.getHeaders(), observe: 'response'});
+  delete(url: string, responseType: any = 'json') {
+    return this._http.delete(url, {headers: this.getHeaders(), observe: 'response', responseType});
   }
 }

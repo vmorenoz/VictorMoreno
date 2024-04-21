@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FinancialProduct} from "@domain/models/financial-product";
 import {FinancialProductService} from "@domain/services/financial-product.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-create',
@@ -9,7 +10,8 @@ import {FinancialProductService} from "@domain/services/financial-product.servic
 })
 export class ProductCreateComponent implements OnInit {
 
-  constructor(private readonly productService: FinancialProductService) {
+  constructor(private readonly productService: FinancialProductService,
+              private readonly router: Router) {
   }
 
   ngOnInit() {
@@ -19,6 +21,7 @@ export class ProductCreateComponent implements OnInit {
     this.productService.createProduct(data)
       .subscribe(response => {
         alert(response.message);
+        this.router.navigate(['/products/list']);
       });
   }
 }

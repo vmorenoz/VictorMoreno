@@ -15,6 +15,7 @@ export class InputErrorsComponent {
     minlength: (error: any) => `El campo debe tener al menos ${error.requiredLength} caracteres`,
     maxlength: (error: any) => `El campo debe tener como máximo ${error.requiredLength} caracteres`,
     pastDate: (error: Date) => `La fecha debe ser igual o mayor que ${this.formatDate(error)}`,
+    duplicated: () => 'El campo ya existe',
   }
 
   get errorsArray(): string[] {

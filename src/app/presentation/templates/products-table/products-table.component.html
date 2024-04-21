@@ -1,9 +1,47 @@
-<app-product-actions-toolbar (search)="searchValue = $event"></app-product-actions-toolbar>
-<div class="card mt-1">
-  <div class="card-body">
-    <app-table [columns]="columns" [data]="displayedProducts"></app-table>
-    <div class="mt-3">
-      <app-paginator [totalItems]="allProducts.length"></app-paginator>
+@if (isLoading) {
+  <div class="flex justify-between mt-3">
+    <app-skeleton width="25rem" height="2.3rem"></app-skeleton>
+    <app-skeleton width="5.9rem" height="2.3rem"></app-skeleton>
+  </div>
+
+  <div class="card mt-1 mb-2">
+    <div class="card-body">
+      <app-skeleton width="75.5vw" height="2.3rem"></app-skeleton>
+      @for (row of [1, 2, 3, 4, 5]; track row) {
+        <div class="flex gap-3 items-center mt-2">
+          <app-skeleton width="5rem" height="3rem"></app-skeleton>
+          @for (item of [1, 2, 3, 4, 5]; track item) {
+            <app-skeleton width="10rem" height="1.5rem"></app-skeleton>
+          }
+        </div>
+      }
+      <div class="flex justify-between mt-3">
+        <app-skeleton width="15rem" height="2rem"></app-skeleton>
+        <app-skeleton width="8rem" height="2rem"></app-skeleton>
+      </div>
     </div>
   </div>
-</div>
+} @else {
+
+  <app-product-actions-toolbar (search)="ProductState.searchValue.set($event)"></app-product-actions-toolbar>
+  <div class="card mt-1">
+    <div class="card-body">
+      <app-table [columns]="columns" [data]="ProductState.displayedProducts()"></app-table>
+      <div class="mt-3">
+        <app-paginator [pageSize]="ProductState.pageSize()" [totalItems]="ProductState.pagination().total"
+                       [totalPages]="ProductState.pagination().totalPages" [currentPage]="ProductState.currentPage()"
+                       (pageChange)="ProductState.currentPage.set($event)"
+                       (pageSizeChange)="ProductState.pageSize.set($event)"></app-paginator>
+      </div>
+    </div>
+  </div>
+
+  <app-modal #deleteModal title="Eliminar producto">
+    <p>¿Estás seguro de eliminar el producto {{ productToDelete?.name }}?</p>
+
+    <div class="flex gap-1 justify-center align-center mt-3">
+      <app-button color="tertiary" (onClick)="deleteModal?.close()">Cancelar</app-button>
+      <app-button color="accent" (onClick)="deleteProduct()">Eliminar</app-button>
+    </div>
+  </app-modal>
+}

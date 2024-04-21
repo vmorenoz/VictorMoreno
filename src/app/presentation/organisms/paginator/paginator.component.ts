@@ -10,7 +10,11 @@ import {ISelectOption} from "@molecules/select-input/select-input.component";
 export class PaginatorComponent implements OnInit {
 
   @Input() totalItems: number = 0;
-  @Output() pageChange = new EventEmitter<number>();
+  @Input() pageSize: number = 5;
+  @Input() currentPage: number = 1;
+  @Input() totalPages: number = 1;
+  @Output() pageSizeChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
 
   pageSizeControl!: FormControl;
   pageSizeOptions: ISelectOption[] = [
@@ -26,8 +30,21 @@ export class PaginatorComponent implements OnInit {
     this.initPageControl();
   }
 
-  initPageControl(): void {
-    this.pageSizeControl = this.formBuilder.control(5);
-    this.pageSizeControl.valueChanges.subscribe(() => this.pageChange.emit(1));
+  private initPageControl(): void {
+    this.pageSizeControl = this.formBuilder.control(this.pageSize);
+    this.pageSizeControl.valueChanges.subscribe((value) => this.pageSizeChange.emit(value));
+  }
+
+  changePage(page: number): void {
+    console.log('changePage', page);
+    this.pageChange.emit(page);
+  }
+
+  nextPage(): void {
+    this.changePage(this.currentPage + 1);
+  }
+
+  previousPage(): void {
+    this.changePage(this.currentPage - 1);
   }
 }

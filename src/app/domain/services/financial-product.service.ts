@@ -41,16 +41,17 @@ export class FinancialProductService extends ApiService {
   }
 
   updateProduct(data: FinancialProduct): Observable<UpdateProductResponse> {
-    return this.put(Endpoints.updateProduct, data)
-      .pipe(map(response => UpdateProductResponse.mapFromResponse(response)))
+    return this.put(Endpoints.updateProduct, data).pipe(
+      map(response => UpdateProductResponse.handleSuccess(response)),
+      catchError(error => of(UpdateProductResponse.handleError(error)))
+    )
   }
 
   deleteProduct(id: string): Observable<ApiResponse<boolean>> {
-    return this.delete(Endpoints.deleteProduct(id)).pipe(
-      map(response => {
-          return ApiResponse.successResponse<boolean>(true, 'Product deleted successfully');
-        }
-      ),
+    return this.delete(Endpoints.deleteProduct(id), 'text').pipe(
+      map(() => {
+        return ApiResponse.successResponse<boolean>(true, 'Product deleted successfully');
+      }),
       catchError(error => {
         return of(ApiResponse.errorResponse('Error deleting product', false, error.status));
       })

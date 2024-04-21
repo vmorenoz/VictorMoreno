@@ -47,6 +47,9 @@
       ],
       "@templates/*": [
         "src/app/presentation/templates/*"
+      ],
+      "@state/*": [
+        "src/app/state/*"
       ]
     }
   },

@@ -9,14 +9,15 @@ import {TableComponent} from './table/table.component';
 import {PaginatorComponent} from './paginator/paginator.component';
 import {RouterLink} from "@angular/router";
 import {ProductFormComponent} from './product-form/product-form.component';
+import { ModalComponent } from './modal/modal.component';
 
 const components = [
   AdminToolbarComponent
 ];
 
 @NgModule({
-  declarations: [...components, ProductActionsToolbarComponent, TableComponent, PaginatorComponent, ProductFormComponent],
-  exports: [...components, ProductActionsToolbarComponent, TableComponent, PaginatorComponent, ProductFormComponent],
+  declarations: [...components, ProductActionsToolbarComponent, TableComponent, PaginatorComponent, ProductFormComponent, ModalComponent],
+  exports: [...components, ProductActionsToolbarComponent, TableComponent, PaginatorComponent, ProductFormComponent, ModalComponent],
   imports: [
     CommonModule,
     AtomsModule,

@@ -1,0 +1,10 @@
+<div class="modal-backdrop" *ngIf="isVisible" (click)="close()">
+  <div class="card" (click)="$event.stopPropagation()">
+    <header class="card-title align-center">
+      {{title}}
+    </header>
+    <section class="card-body">
+      <ng-content></ng-content>
+    </section>
+  </div>
+</div>

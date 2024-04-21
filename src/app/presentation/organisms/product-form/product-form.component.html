@@ -24,7 +24,13 @@
   </div>
   <div class="grid grid-cols-2 gap-3 mt-3">
     <div class="align-end">
-      <app-button color="tertiary" (onClick)="resetForm()">Reiniciar</app-button>
+      @if (isEditing) {
+        <app-button color="tertiary" (onClick)="cancel()">Cancelar
+        </app-button>
+      } @else {
+        <app-button color="tertiary" (onClick)="resetForm()">Reiniciar
+        </app-button>
+      }
     </div>
     <div class="align-start">
       <app-button color="accent" type="submit" [disabled]="productFormGroup.invalid">Enviar
