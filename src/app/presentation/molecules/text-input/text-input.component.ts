@@ -4,8 +4,7 @@ import {
   forwardRef,
   Injector,
   Input,
-  Optional,
-  Self,
+  OnInit,
   ViewEncapsulation
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from '@angular/forms';
@@ -24,7 +23,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from '@angular/forms
     }
   ]
 })
-export class TextInputComponent implements ControlValueAccessor {
+export class TextInputComponent implements ControlValueAccessor, OnInit {
 
   @Input() label!: string;
   @Input() placeholder: string = '';
@@ -40,14 +39,24 @@ export class TextInputComponent implements ControlValueAccessor {
   }
 
   ngOnInit() {
-    this.ngControl = this.injector.get(NgControl, null);
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
+    setTimeout(() => {
+      this.ngControl = this.injector.get(NgControl);
+      if (this.ngControl != null) {
+        this.ngControl.valueAccessor = this;
+      }
+    });
   }
 
-  get errors() {
+  get validationErrors() {
     return this.ngControl ? this.ngControl?.errors : null;
+  }
+
+  get isTouched() {
+    return this.ngControl ? this.ngControl?.touched : false;
+  }
+
+  get isInvalid() {
+    return this.ngControl ? this.ngControl?.invalid : false;
   }
 
   writeValue(value: string): void {

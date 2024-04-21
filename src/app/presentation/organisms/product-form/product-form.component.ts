@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -9,6 +9,8 @@ import {
   Validators
 } from "@angular/forms";
 import {DatePipe} from "@angular/common";
+import {FinancialProduct} from "@domain/models/financial-product";
+import {filter} from "rxjs";
 
 export interface FinancialProductForm {
   id?: FormControl<string | null>;
@@ -25,6 +27,8 @@ export interface FinancialProductForm {
   styleUrl: './product-form.component.css'
 })
 export class ProductFormComponent implements OnInit {
+
+  @Output() onSubmit = new EventEmitter<FinancialProduct>();
 
   productFormGroup!: FormGroup<FinancialProductForm>;
 
@@ -66,26 +70,35 @@ export class ProductFormComponent implements OnInit {
       }, Validators.required),
     });
 
-    // Listen for changes in the date_release field
     this.productFormGroup.controls.date_release
       .valueChanges
+      .pipe(filter(date => !!date))
       .subscribe(date => {
-        if (!date) return;
-
-        const revisionDate = new Date(date);
+        const revisionDate = new Date(date!);
+        revisionDate.setMinutes(revisionDate.getMinutes() + revisionDate.getTimezoneOffset());
         revisionDate.setFullYear(revisionDate.getFullYear() + 1);
+
         this.productFormGroup.controls.date_revision.setValue(this.datePipe.transform(revisionDate, 'yyyy-MM-dd'));
       });
   }
 
-  private futureDateValidator(): ValidatorFn {
+  submitForm() {
+    if (this.productFormGroup.invalid) {
+      return;
+    }
+
+    console.log('Form submitted', this.productFormGroup.getRawValue());
+
+    this.onSubmit.emit(FinancialProduct.fromJson(this.productFormGroup.getRawValue()));
+  }
+
+  private futureDateValidator(minDate: Date = new Date()): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const controlValue = new Date(control.value);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      if (controlValue < today) {
-        return {'pastDate': true};
+      controlValue.setMinutes(controlValue.getMinutes() + controlValue.getTimezoneOffset());
+      minDate.setHours(0, 0, 0, 0);
+      if (controlValue < minDate) {
+        return {'pastDate': minDate};
       }
       return null;
     };

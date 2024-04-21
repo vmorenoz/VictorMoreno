@@ -12,8 +12,8 @@ export class FinancialProduct {
     product.name = json.name;
     product.description = json.description;
     product.logo = json.logo;
-    product.date_release = new Date(json.date_release);
-    product.date_revision = new Date(json.date_revision);
+    product.date_release = json.date_release;
+    product.date_revision = json.date_revision;
     return product;
   }
 }

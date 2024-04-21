@@ -34,5 +34,9 @@
       color: var(--gray-color-light);
     }
   }
+
+  input.invalid {
+    border-color: var(--error-color);
+  }
 }
 

@@ -1,4 +1,4 @@
-<form [formGroup]="productFormGroup" autocomplete="off" novalidate>
+<form [formGroup]="productFormGroup" autocomplete="off" novalidate (ngSubmit)="submitForm()">
   <div class="grid grid-cols-2 gap-2">
     <div>
       <app-text-input formControlName="id" label="ID" placeholder="ID del producto"></app-text-input>
@@ -27,7 +27,8 @@
       <app-button color="tertiary">Reiniciar</app-button>
     </div>
     <div class="align-start">
-      <app-button color="accent" type="submit" [disabled]="productFormGroup.invalid">Enviar</app-button>
+      <app-button color="accent" type="submit" [disabled]="productFormGroup.invalid">Enviar
+      </app-button>
     </div>
   </div>
 </form>
