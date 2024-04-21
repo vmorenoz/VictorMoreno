@@ -1,7 +1,14 @@
 <ng-template #rowTemplate let-row="row">
   <tr>
     @for (column of columns; track column.key) {
-      <td [innerHTML]="render(column, row[column.key])"></td>
+      @if (column.type === 'column') {
+        <td [innerHTML]="render(column, row[column.key])"></td>
+      } @else {
+        <td>
+          <app-menu-button [options]="column.actions ?? []"
+                           (selectedOption)="handleAction($event.key, row)"></app-menu-button>
+        </td>
+      }
     }
   </tr>
 </ng-template>

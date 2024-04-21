@@ -24,7 +24,7 @@
   </div>
   <div class="grid grid-cols-2 gap-3 mt-3">
     <div class="align-end">
-      <app-button color="tertiary">Reiniciar</app-button>
+      <app-button color="tertiary" (onClick)="resetForm()">Reiniciar</app-button>
     </div>
     <div class="align-start">
       <app-button color="accent" type="submit" [disabled]="productFormGroup.invalid">Enviar

@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   forwardRef,
   Injector,
@@ -35,7 +35,8 @@ export class TextInputComponent implements ControlValueAccessor, OnInit {
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  constructor(private readonly injector: Injector) {
+  constructor(private readonly injector: Injector,
+              private readonly cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -61,6 +62,7 @@ export class TextInputComponent implements ControlValueAccessor, OnInit {
 
   writeValue(value: string): void {
     this.value = value;
+    this.cd.detectChanges();
   }
 
   registerOnChange(fn: (value: string) => void): void {

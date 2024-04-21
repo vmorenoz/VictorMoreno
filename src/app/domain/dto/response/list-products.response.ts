@@ -3,20 +3,19 @@ import {ApiResponse} from "@domain/dto/response/api.response";
 import {HttpResponse} from "@angular/common/http";
 
 export class ListProductsResponse extends ApiResponse<FinancialProduct[]> {
-  static fromResponse(response: HttpResponse<any>) {
-    let mappedResponse: ListProductsResponse;
-    switch (response.status) {
-      case 200:
-        const financialProducts = response.body.map((product: any) => FinancialProduct.fromJson(product));
-        mappedResponse = ListProductsResponse.successResponse<FinancialProduct[]>(financialProducts);
-        break;
-      case 400:
-        mappedResponse = ListProductsResponse.errorResponse('Bad Request', response.body, response.status);
-        break;
-      default:
-        mappedResponse = ListProductsResponse.errorResponse('Unknown Error', response.body, response.status);
-        break;
-    }
-    return mappedResponse;
+
+  static handleSuccess(response: HttpResponse<any>): ListProductsResponse {
+    const items = FinancialProduct.fromJsonArray(response.body);
+    return ListProductsResponse.successResponse(items, 'Productos listados correctamente');
+  }
+
+  static handleError(error: { status: number, error: any }) {
+    const possibleErrors: { [key: string]: string } = {
+      400: 'Bad Request',
+      500: 'Internal Server Error',
+      default: 'Unknown Error'
+    };
+    const errorMessage = possibleErrors[error.status] ?? possibleErrors['default'];
+    return ListProductsResponse.errorResponse(errorMessage, error.error, error.status);
   }
 }

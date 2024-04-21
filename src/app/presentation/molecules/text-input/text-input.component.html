@@ -1,7 +1,7 @@
 <div class="input-container">
   <app-input-label *ngIf="!!label">{{ label }}</app-input-label>
   <input [type]="type" [disabled]="disabled" [(ngModel)]="value" (input)="updateValue($event)"
-         [placeholder]="placeholder" [ngClass]="{'invalid' : isInvalid}">
+         [placeholder]="placeholder" [ngClass]="{'invalid' : isInvalid && isTouched}">
   @if (isTouched) {
     <app-input-errors [errors]="validationErrors"></app-input-errors>
   }

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FinancialProduct} from "@domain/models/financial-product";
+import {FinancialProductService} from "@domain/services/financial-product.service";
 
 @Component({
   selector: 'app-product-create',
@@ -8,13 +9,16 @@ import {FinancialProduct} from "@domain/models/financial-product";
 })
 export class ProductCreateComponent implements OnInit {
 
-  constructor() {
+  constructor(private readonly productService: FinancialProductService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
   createProduct(data: FinancialProduct): void {
-    console.log('Create product', data);
+    this.productService.createProduct(data)
+      .subscribe(response => {
+        alert(response.message);
+      });
   }
 }

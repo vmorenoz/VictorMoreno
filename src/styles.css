@@ -9,6 +9,7 @@
   --accent-color: #FFD700;
   --accent-color-hover: #FFC400;
   --light-color: #F9FAFC;
+  --light-color-hover: #F4F6F9;
   --white-color: #FFFFFF;
   --white-color-hover: #F9FAFC;
   --black-color: #666666;
@@ -60,7 +61,7 @@ body {
   }
 
   .card-body {
-    padding: 1rem 2rem;
+    padding: 1.5rem;
   }
 }
 

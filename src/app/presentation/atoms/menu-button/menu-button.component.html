@@ -1,0 +1,8 @@
+<div class="dropdown">
+  <button class="dropdown-button" (click)="toggleDropdown()">
+    <span class="material-symbols-outlined">more_vert</span>
+  </button>
+  <div class="dropdown-content" *ngIf="isOpen">
+    <a *ngFor="let option of options" (click)="selectOption(option)">{{ option.label }}</a>
+  </div>
+</div>

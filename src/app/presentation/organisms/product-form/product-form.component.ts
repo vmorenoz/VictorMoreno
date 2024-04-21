@@ -87,9 +87,11 @@ export class ProductFormComponent implements OnInit {
       return;
     }
 
-    console.log('Form submitted', this.productFormGroup.getRawValue());
-
     this.onSubmit.emit(FinancialProduct.fromJson(this.productFormGroup.getRawValue()));
+  }
+
+  resetForm() {
+    this.productFormGroup.reset();
   }
 
   private futureDateValidator(minDate: Date = new Date()): ValidatorFn {

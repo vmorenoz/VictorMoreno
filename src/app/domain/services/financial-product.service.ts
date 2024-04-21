@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Endpoints} from "@config/endpoints";
 import {ApiService} from "@domain/services/api.service";
-import {map, Observable} from "rxjs";
+import {catchError, map, Observable, of} from "rxjs";
 import {ListProductsResponse} from "@domain/dto/response/list-products.response";
 import {FinancialProduct} from "@domain/models/financial-product";
 import {CreateProductResponse} from "@domain/dto/response/create-product.response";
@@ -18,14 +18,26 @@ export class FinancialProductService extends ApiService {
     super(http);
   }
 
-  listProducts(): Observable<ListProductsResponse> {
-    return this.get(Endpoints.listProducts)
-      .pipe(map(response => ListProductsResponse.fromResponse(response)))
+  listProducts(): Observable<ListProductsResponse | any> {
+    return this.get(Endpoints.listProducts).pipe(
+      map(response => {
+        return ListProductsResponse.handleSuccess(response);
+      }),
+      catchError(error => {
+        return of(ListProductsResponse.handleError(error));
+      })
+    )
   }
 
   createProduct(data: FinancialProduct): Observable<CreateProductResponse> {
-    return this.post(Endpoints.createProduct, data)
-      .pipe(map(response => CreateProductResponse.mapFromResponse(response)),);
+    return this.post(Endpoints.createProduct, data).pipe(
+      map(response => {
+        return CreateProductResponse.handleSuccess(response);
+      }),
+      catchError(error => {
+        return of(CreateProductResponse.handleError(error));
+      })
+    );
   }
 
   updateProduct(data: FinancialProduct): Observable<UpdateProductResponse> {
@@ -34,25 +46,15 @@ export class FinancialProductService extends ApiService {
   }
 
   deleteProduct(id: string): Observable<ApiResponse<boolean>> {
-    return this.delete(Endpoints.deleteProduct(id))
-      .pipe(map(response => {
-        let mappedResponse: ApiResponse<boolean>;
-        switch (response.status) {
-          case 200:
-            mappedResponse = ApiResponse.successResponse(true);
-            break;
-          case 400:
-            mappedResponse = ApiResponse.errorResponse('Bad Request', false, response.status);
-            break;
-          case 404:
-            mappedResponse = ApiResponse.errorResponse('Product Not Found', false, response.status);
-            break;
-          default:
-            mappedResponse = ApiResponse.errorResponse('Unknown Error', false, response.status);
-            break;
+    return this.delete(Endpoints.deleteProduct(id)).pipe(
+      map(response => {
+          return ApiResponse.successResponse<boolean>(true, 'Product deleted successfully');
         }
-        return mappedResponse;
-      }));
+      ),
+      catchError(error => {
+        return of(ApiResponse.errorResponse('Error deleting product', false, error.status));
+      })
+    );
   }
 
   verifyExistenceById(id: string): Observable<ApiResponse<boolean>> {

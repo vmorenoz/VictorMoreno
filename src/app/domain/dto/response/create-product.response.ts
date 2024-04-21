@@ -4,22 +4,18 @@ import {HttpResponse} from "@angular/common/http";
 
 export class CreateProductResponse extends ApiResponse<FinancialProduct> {
 
-  static mapFromResponse(response: HttpResponse<any>): CreateProductResponse {
-    let mappedResponse: CreateProductResponse;
-    switch (response.status) {
-      case 200: // OK
-        mappedResponse = CreateProductResponse.successResponse<FinancialProduct>(response.body);
-        break;
-      case 206: // Partial Content
-        mappedResponse = CreateProductResponse.errorResponse('Partial Content', response.body, response.status);
-        break;
-      case 400: // Bad Request
-        mappedResponse = CreateProductResponse.errorResponse('Bad Request', response.body, response.status);
-        break;
-      default:
-        mappedResponse = CreateProductResponse.errorResponse('Unknown Error', response.body, response.status);
-        break;
-    }
-    return mappedResponse;
+  static handleSuccess(response: HttpResponse<any>): CreateProductResponse {
+    const items = FinancialProduct.fromJson(response.body);
+    return CreateProductResponse.successResponse(items, 'Producto creado exitosamente');
+  }
+
+  static handleError(error: { status: number, error: any }) {
+    const possibleErrors: { [key: string]: string } = {
+      206: 'Partial Content',
+      400: 'Bad Request',
+      default: 'Unknown Error'
+    };
+    const errorMessage = possibleErrors[error.status] ?? possibleErrors['default'];
+    return CreateProductResponse.errorResponse(errorMessage, error.error, error.status);
   }
 }
