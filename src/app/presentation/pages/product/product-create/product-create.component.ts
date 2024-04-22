@@ -8,13 +8,10 @@ import {Router} from "@angular/router";
   templateUrl: './product-create.component.html',
   styleUrl: './product-create.component.css'
 })
-export class ProductCreateComponent implements OnInit {
+export class ProductCreateComponent {
 
-  constructor(private readonly productService: FinancialProductService,
+  constructor(readonly productService: FinancialProductService,
               private readonly router: Router) {
-  }
-
-  ngOnInit() {
   }
 
   createProduct(data: FinancialProduct): void {

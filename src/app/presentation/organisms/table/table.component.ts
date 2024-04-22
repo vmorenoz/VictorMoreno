@@ -1,5 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
-import {ModalComponent} from "@organisms/modal/modal.component";
+import {Component, Input} from '@angular/core';
 
 export interface ITableAction {
   label: string;

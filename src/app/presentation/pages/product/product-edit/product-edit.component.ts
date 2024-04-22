@@ -11,12 +11,14 @@ import {ProductState} from "@state/product.state";
 })
 export class ProductEditComponent implements OnInit {
 
-  constructor(private readonly productService: FinancialProductService,
-              private readonly router: Router) {
+  productState = ProductState;
+
+  constructor(readonly productService: FinancialProductService,
+              readonly router: Router) {
   }
 
   ngOnInit(): void {
-    if (!ProductState.selectedProduct()) {
+    if (!this.productState.selectedProduct()) {
       this.router.navigate(['/products/list']);
     }
   }

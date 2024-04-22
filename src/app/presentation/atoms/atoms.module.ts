@@ -5,15 +5,15 @@ import {ButtonComponent} from './button/button.component';
 import {InputErrorsComponent} from './input-errors/input-errors.component';
 import {MenuButtonComponent} from './menu-button/menu-button.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import { SkeletonComponent } from './skeleton/skeleton.component';
+import {SkeletonComponent} from './skeleton/skeleton.component';
 
 const components = [
-  InputLabelComponent, ButtonComponent, InputErrorsComponent, MenuButtonComponent
+  InputLabelComponent, ButtonComponent, InputErrorsComponent, MenuButtonComponent, SkeletonComponent
 ];
 
 @NgModule({
-  declarations: [...components, SkeletonComponent,],
-  exports: [...components, SkeletonComponent],
+  declarations: [...components],
+  exports: [...components],
   imports: [
     CommonModule,
     ReactiveFormsModule,

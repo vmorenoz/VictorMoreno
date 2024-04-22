@@ -27,8 +27,8 @@ export class SelectInputComponent implements ControlValueAccessor {
   @Input() options: ISelectOption[] = [];
 
   value!: string;
-  onChange!: (value: SelectOptionValue) => void;
-  onTouched!: () => void;
+  onChange: (value: SelectOptionValue) => void = () => {};
+  onTouched: () => void = () => {};
 
   writeValue(value: string): void {
     this.value = value;

@@ -8,7 +8,7 @@ import {formatDate} from "@angular/common";
   styleUrl: './input-errors.component.css'
 })
 export class InputErrorsComponent {
-  @Input() errors: ValidationErrors | null = null;
+  @Input() errors: ValidationErrors = {};
 
   errorMessages: { [key: string]: (value: any) => string } = {
     required: () => 'El campo es requerido',
@@ -22,14 +22,15 @@ export class InputErrorsComponent {
     if (!this.errors) {
       return [];
     }
-    return Object.keys(this.errors).map((key) => {
-      const error = this.errors![key];
-      if (!error) return 'El campo es inválido';
-      return this.errorMessages[key](error);
-    });
+    return Object.keys(this.errors)
+      .map((key) => {
+        const error = this.errors[key];
+        const message = this.errorMessages[key];
+        return message ? message(error) : 'El campo es inválido';
+      });
   }
 
-  private formatDate(date: Date) {
+  formatDate(date: Date) {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();

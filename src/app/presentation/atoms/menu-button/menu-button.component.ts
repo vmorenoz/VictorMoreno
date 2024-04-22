@@ -17,7 +17,7 @@ export class MenuButtonComponent {
 
   isOpen = false;
 
-  constructor(private eRef: ElementRef) {
+  constructor(public eRef: ElementRef) {
   }
 
   toggleDropdown() {

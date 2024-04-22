@@ -32,8 +32,8 @@ export class TextInputComponent implements ControlValueAccessor, OnInit {
   value!: string;
   disabled: boolean = false;
   ngControl!: NgControl | null;
-  onChange!: (value: string) => void;
-  onTouched!: () => void;
+  onChange: (value: string) => void = () => {};
+  onTouched: () => void = () => {};
 
   constructor(private readonly injector: Injector,
               private readonly cd: ChangeDetectorRef) {
