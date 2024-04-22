@@ -1,27 +1,23 @@
-# VictorMoreno
+# Ejercicio Técnico Devsu
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.5.
+Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) versión 17.3.5. Es una aplicación web que permite gestionar productos financieros. Los usuarios pueden crear, editar y eliminar productos. Cada producto tiene un ID, nombre, descripción, logo, fecha de lanzamiento y fecha de revisión.
 
-## Development server
+## Requisitos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Para ejecutar este proyecto, necesitarás tener instalado Node.js y npm. También necesitarás Angular CLI, que puedes instalar con npm.
 
-## Code scaffolding
+## Instalación
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Primero, clona este repositorio en tu máquina local. Luego, navega hasta el directorio del proyecto y ejecuta `npm install` para instalar todas las dependencias del proyecto.
 
-## Build
+## Ejecución del Proyecto
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Para iniciar el servidor de desarrollo, ejecuta `ng serve` en la línea de comandos. Luego, abre tu navegador y navega a `http://localhost:4200/`. La aplicación se recargará automáticamente si cambias alguno de los archivos de origen.
 
-## Running unit tests
+## Ejecución de Pruebas Unitarias
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Este proyecto utiliza Jest como su marco de pruebas. Para ejecutar las pruebas unitarias, ejecuta `npm run test`. Jest comenzará a ejecutar las pruebas y mostrará los resultados en la línea de comandos.
 
-## Running end-to-end tests
+## Ayuda Adicional
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Para obtener más ayuda sobre Angular CLI, ejecuta `ng help` o visita la [Angular CLI Overview and Command Reference](https://angular.io/cli) página.

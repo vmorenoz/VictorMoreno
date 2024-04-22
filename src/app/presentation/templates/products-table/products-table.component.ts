@@ -90,7 +90,7 @@ export class ProductsTableComponent implements OnInit {
       });
   }
 
-  private editProduct(product: FinancialProduct): void {
+  editProduct(product: FinancialProduct): void {
     ProductState.selectedProduct.set(product);
     this.router.navigate(['products/edit']);
   }
