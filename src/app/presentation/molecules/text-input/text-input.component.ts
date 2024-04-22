@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from '@angular/forms';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ValidationErrors} from '@angular/forms';
 
 @Component({
   selector: 'app-text-input',
@@ -32,8 +32,10 @@ export class TextInputComponent implements ControlValueAccessor, OnInit {
   value!: string;
   disabled: boolean = false;
   ngControl!: NgControl | null;
-  onChange: (value: string) => void = () => {};
-  onTouched: () => void = () => {};
+  onChange: (value: string) => void = () => {
+  };
+  onTouched: () => void = () => {
+  };
 
   constructor(private readonly injector: Injector,
               private readonly cd: ChangeDetectorRef) {
@@ -48,8 +50,8 @@ export class TextInputComponent implements ControlValueAccessor, OnInit {
     });
   }
 
-  get validationErrors() {
-    return this.ngControl ? this.ngControl?.errors : null;
+  get validationErrors(): ValidationErrors {
+    return this.ngControl?.errors ? this.ngControl.errors : {} as ValidationErrors;
   }
 
   get isTouched() {

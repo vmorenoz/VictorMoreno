@@ -13,6 +13,11 @@ const routes: Routes = [
   {
     path: 'edit',
     loadChildren: () => import('./product-edit/product-edit.module').then(m => m.ProductEditModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'list',
+    pathMatch: 'full'
   }
 ];
 
